@@ -1,4 +1,5 @@
 require('dotenv').config()
+
 const { PORT } = require('./util/config')
 const { connectToDatabase } = require('./util/db')
 
