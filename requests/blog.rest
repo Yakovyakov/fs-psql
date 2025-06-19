@@ -2,7 +2,7 @@
 http://localhost:3001/api/blogs
 
 ### Delete a blog
-DELETE http://localhost:3001/api/blogs/7
+DELETE http://localhost:3001/api/blogs/9
 
 ### Create a new blog
 POST http://localhost:3001/api/blogs HTTP/1.1
@@ -10,7 +10,8 @@ Content-Type: application/json
 
 {
   "title": "New blog from REST Client",
-  "author": "myself"
+  "author": "myself",
+  "url": "http://yy.com"
 }
 
 ### Changes the number of a blog's likes
@@ -18,5 +19,5 @@ PUT http://localhost:3001/api/blogs/1 HTTP/1.1
 Content-Type: application/json
 
 {
-  "likes": "-5"
+  "likes": "2ff"
 }
