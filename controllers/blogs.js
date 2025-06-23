@@ -11,9 +11,19 @@ router.get('/', async (req, res) => {
         && searchTerm.trim() !== '';  
   const where = isValidSearch
     ? {
-        title: { [Op.iLike]: `%${searchTerm}%` }
-      }
-    : {};
+      [Op.or]: [
+        { 
+          title: { 
+            [Op.iLike]: `%${searchTerm}%` 
+          } 
+        },
+        { 
+          author: { 
+            [Op.iLike]: `%${searchTerm}%` 
+          } 
+        }
+      ]
+    } : {};
   const blogs = await Blog.findAll({
     where,
     attributes: { exclude: ['userId'] },
