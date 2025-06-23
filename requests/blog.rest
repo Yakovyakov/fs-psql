@@ -1,13 +1,15 @@
 ### All blogs
 http://localhost:3001/api/blogs
 
+### Search blogs
+http://localhost:3001/api/blogs?search="   "
+
 ### A blogs
 http://localhost:3001/api/blogs/12
 
 ### Delete a blog
 DELETE http://localhost:3001/api/blogs/1
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Inlha292MiIsImlkIjo0LCJpYXQiOjE3NTA2ODYxNDEsImV4cCI6MTc1MDY5MzM0MX0.mvVe7kwdzbKuSFpfsa69R1Zwt-Mcb2QeZIGXHP09rbk
-
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Inlha292MiIsImlkIjo0LCJpYXQiOjE3NTA2OTAxNzAsImV4cCI6MTc1MDY5NzM3MH0.33LsWgSKXH84IYPsTMthOI_Cucm3OH9OCG2f1ZVIX0Y
 ### Create a new blog
 POST http://localhost:3001/api/blogs HTTP/1.1
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Inlha292MiIsImlkIjo0LCJpYXQiOjE3NTA2ODYxNDEsImV4cCI6MTc1MDY5MzM0MX0.mvVe7kwdzbKuSFpfsa69R1Zwt-Mcb2QeZIGXHP09rbk

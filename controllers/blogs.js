@@ -1,11 +1,21 @@
 const jwt = require('jsonwebtoken')
+const { Op } = require('sequelize')
 const router = require('express').Router()
 
 const { Blog, User } = require('../models')
 
 router.get('/', async (req, res) => {
-
+  const searchTerm = req.query.search;
+  const isValidSearch = searchTerm 
+        && typeof searchTerm === 'string' 
+        && searchTerm.trim() !== '';  
+  const where = isValidSearch
+    ? {
+        title: { [Op.iLike]: `%${searchTerm}%` }
+      }
+    : {};
   const blogs = await Blog.findAll({
+    where,
     attributes: { exclude: ['userId'] },
     include: {
       model: User,
