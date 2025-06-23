@@ -17,7 +17,7 @@ const errorHandler = (error, request, response, next) => {
   else if (error.name === 'SequelizeDatabaseError') {
     // PostgreSQL error 22P02: invalid_text_representation
     if (error.parent && error.parent.code === '22P02') {
-      return res.status(400).json({ 
+      return response.status(400).json({ 
         error: 'Invalid data type in one of the fields'
       })
     }
@@ -29,11 +29,11 @@ const errorHandler = (error, request, response, next) => {
       message: `${err.path} must be unique`
     }))
     // 409 Conflict  
-    return res.status(409).json({ errors }); 
+    return response.status(409).json({ errors }); 
   }
   // handle TypeError
   else if (error instanceof TypeError) {
-    return res.status(400).json({
+    return response.status(400).json({
       error: 'Type error',
       message: error.message,
       // development only ... more details

@@ -13,11 +13,28 @@ User.init({
   username: {
     type: DataTypes.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notNull: {
+        msg: 'username is required'
+      },
+      notEmpty: {
+        msg: 'username cannot be empty'
+      },
+      isEmail: true
+    }  
   },
   name: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notNull: {
+        msg: 'name is required'
+      },
+      notEmpty: {
+        msg: 'name cannot be empty'
+      }
+    }  
   },
   passwordHash: {
     type: DataTypes.STRING,
