@@ -1,0 +1,2 @@
+### All authors
+http://localhost:3001/api/authors

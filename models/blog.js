@@ -54,7 +54,24 @@ Blog.init({
         msg: 'Likes cannot be negative'
       }
     }
-  }
+  },
+  year: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    validate: {
+      notNull: {
+        msg: 'Year is required'
+      },
+      isValidBlogYear(year) {
+        const date = new Date();
+        if (year < 1991 || year > date.getFullYear()) {
+          throw new Error(
+            `year must be between 1991 and ${date.getFullYear()}`
+          );
+        }
+      },
+    },
+  },
 }, {
   sequelize,
   modelName: 'blog',
