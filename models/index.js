@@ -13,14 +13,12 @@ Blog.belongsTo(User)
 
 User.belongsToMany(Blog, {
   through: ReadingList,
-  as: 'reading_list',
-  foreignKey: 'user_id'
+  as: 'readings'
 });
 
 Blog.belongsToMany(User, {
   through: ReadingList,
-  as: 'readers',
-  foreignKey: 'blog_id'
+  as: 'readers'
  });
 
 module.exports = {

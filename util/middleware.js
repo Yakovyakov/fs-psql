@@ -21,7 +21,7 @@ const errorHandler = (error, request, response, next) => {
         error: 'Invalid data type in one of the fields'
       })
     }
-    return res.status(500).json({ error: 'Database error' })
+    return response.status(500).json({ error: 'Database error' })
   }
   else if (error.name === 'SequelizeUniqueConstraintError') {
     const errors = error.errors.map(err => ({
