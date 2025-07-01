@@ -13,13 +13,14 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Inlha
 
 ### Create a new blog
 POST http://localhost:3001/api/blogs HTTP/1.1
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Inlha28xQGV4YW1wbGUuY29tIiwiaWQiOjEsImlhdCI6MTc1MDc5MzQ2MiwiZXhwIjoxNzUwODAwNjYyfQ.44WGMlnZE_RPeNlwG6Qc1APfJ6IFcCgNJCPpeKvAlWo
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Inlha28xQGV4YW1wbGUuY29tIiwiaWQiOjEsImlhdCI6MTc1MTM4MDMzOCwiZXhwIjoxNzUxMzg3NTM4fQ.CmWgyUfNWViIq62xHLpLnU8xwAn5M09VzExERvN9-P8
 Content-Type: application/json
 
 {
   "title": "yacko Blog",
   "author": "yako",
-  "url": "http://yy.com"
+  "url": "http://yy.com",
+  "year": "1991"
 }
 
 ### Changes the number of a blog's likes
