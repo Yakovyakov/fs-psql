@@ -18,7 +18,7 @@ User.belongsToMany(Blog, {
 
 Blog.belongsToMany(User, {
   through: ReadingList,
-  as: 'readers'
+  as: 'readinglists'
  });
 
 module.exports = {
