@@ -14,6 +14,14 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:id', async (req, res, next) => {
+  const { read } = req.query
+  const whereCondition = {}
+  if (typeof read !== 'undefined') {
+    if (read === 'true' || read === 'false') {
+      whereCondition.read = read === 'true'
+    }
+  }
+
   try {
     const user = await User.findByPk(req.params.id, {
       attributes: ['name', 'username'],
@@ -24,6 +32,7 @@ router.get('/:id', async (req, res, next) => {
           through: {
             as: 'readinglists',
             attributes: ['id', 'read'],
+            where: whereCondition,
           },
           attributes: ['id', 'url', 'title', 'author', 'likes', 'year'],
         },
