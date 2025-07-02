@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt')
-
 const router = require('express').Router()
 
 const { User, Blog } = require('../models')
@@ -9,15 +8,12 @@ router.get('/', async (req, res) => {
     attributes: { exclude: ['blogId'] },
     include: {
       model: Blog,
-    }
-
+    },
   })
   res.json(users)
 })
 
-
 router.get('/:id', async (req, res, next) => {
-
   try {
     const user = await User.findByPk(req.params.id, {
       attributes: ['name', 'username'],
@@ -27,28 +23,22 @@ router.get('/:id', async (req, res, next) => {
           as: 'readings',
           through: {
             as: 'readinglists',
-            attributes: ['id', 'read']
+            attributes: ['id', 'read'],
           },
-          attributes: ['id', 'url', 'title', 'author', 'likes', 'year']
-        }
-      ]
+          attributes: ['id', 'url', 'title', 'author', 'likes', 'year'],
+        },
+      ],
     })
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-    const response = {
-      name: user.name,
-      username: user.username,
-      readings: user.readings
+      return res.status(404).json({ error: 'User not found' })
     }
 
-    res.json(user);
+    res.json(user)
   } catch (err) {
     next(err)
   }
 })
-
 
 router.post('/', async (req, res, next) => {
   const { username, name, password } = req.body
@@ -59,7 +49,6 @@ router.post('/', async (req, res, next) => {
   const saltRounds = 10
   const passwordHash = await bcrypt.hash(password, saltRounds)
 
-
   const userToCreate = {
     username,
     name,
@@ -69,13 +58,13 @@ router.post('/', async (req, res, next) => {
   try {
     const user = await User.create(userToCreate)
     res.json(user)
-  } catch(error) {
+  } catch (error) {
     next(error)
   }
 })
 
 router.put('/:username', async (req, res, next) => {
-try {
+  try {
     const user = await User.findOne({ where: { username: req.params.username } })
     if (!user) {
       return res.status(404).json({ error: 'User not found' })
@@ -83,7 +72,7 @@ try {
     user.username = req.body.username
     await user.save()
     res.json(user)
-  } catch(err) {
+  } catch (err) {
     next(err)
   }
 })

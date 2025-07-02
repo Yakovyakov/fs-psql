@@ -4,47 +4,50 @@ const { sequelize } = require('../util/db')
 
 class User extends Model {}
 
-User.init({
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
-  username: {
-    type: DataTypes.STRING,
-    unique: true,
-    allowNull: false,
-    validate: {
-      notNull: {
-        msg: 'username is required'
+User.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    username: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'username is required',
+        },
+        notEmpty: {
+          msg: 'username cannot be empty',
+        },
+        isEmail: true,
       },
-      notEmpty: {
-        msg: 'username cannot be empty'
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'name is required',
+        },
+        notEmpty: {
+          msg: 'name cannot be empty',
+        },
       },
-      isEmail: true
-    }  
+    },
+    passwordHash: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      notNull: {
-        msg: 'name is required'
-      },
-      notEmpty: {
-        msg: 'name cannot be empty'
-      }
-    }  
+  {
+    sequelize,
+    underscored: true,
+    timestamps: true,
+    modelName: 'user',
   },
-  passwordHash: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-}, {
-  sequelize,
-  underscored: true,
-  timestamps: true,
-  modelName: 'user'
-})
+)
 
 module.exports = User

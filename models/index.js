@@ -13,15 +13,16 @@ Blog.belongsTo(User)
 
 User.belongsToMany(Blog, {
   through: ReadingList,
-  as: 'readings'
-});
+  as: 'readings',
+})
 
 Blog.belongsToMany(User, {
   through: ReadingList,
-  as: 'readinglists'
- });
+  as: 'readinglists',
+})
 
 module.exports = {
-  Blog, User, ReadingList
+  Blog,
+  User,
+  ReadingList,
 }
-

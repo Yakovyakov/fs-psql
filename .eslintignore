@@ -1,0 +1,16 @@
+node_modules/
+dist/
+build/
+coverage/
+.env
+*.log
+*.md
+*.txt
+.vscode/
+.idea/
+public/
+migrations/
+seeders/
+config/config.json
+study/
+*eslintrc.js

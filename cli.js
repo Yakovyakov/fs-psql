@@ -1,25 +1,22 @@
 require('dotenv').config()
 
 const { connectToDatabase, closeDatabase } = require('./util/db')
-
-const Blog = require('./models/blog.js')
-
-
+const Blog = require('./models/blog')
 
 const main = async () => {
   try {
     await connectToDatabase()
-    //const blogs = await sequelize.query('SELECT * from blogs', { type: QueryTypes.SELECT })
-    //console.log(blogs)
+    // const blogs = await sequelize.query('SELECT * from blogs', { type: QueryTypes.SELECT })
+    // console.log(blogs)
     const blogs = await Blog.findAll()
     blogs.map(blog => console.log(`${blog.author}: '${blog.title}', ${blog.likes} likes`))
   } catch (error) {
     console.error('Unable to connect to the database:', error)
-  }finally {
+  } finally {
     try {
-      await closeDatabase();
+      await closeDatabase()
     } catch (closeError) {
-      console.error('Error while closing connection:', closeError);
+      console.error('Error while closing connection:', closeError)
     }
   }
 }

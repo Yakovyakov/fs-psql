@@ -1,31 +1,9 @@
 const Sequelize = require('sequelize')
-const { DATABASE_URL } = require('./config')
-
 const { Umzug, SequelizeStorage } = require('umzug')
 
+const { DATABASE_URL } = require('./config')
+
 const sequelize = new Sequelize(DATABASE_URL)
-
-const connectToDatabase = async () => {
-  try {
-    await sequelize.authenticate()
-    await runMigrations()
-    console.log('connected to the database')
-  } catch (err) {
-    console.log('failed to connect to the database')
-    return process.exit(1)
-  }
-
-  return null
-}
-const closeDatabase = async () => {
-try {
-    await sequelize.close();
-    console.log('Database connection closed');
-  } catch (err) {
-    console.error('Error closing database connection:', err.message);
-    throw err;
-  }
-}
 
 const migrationConf = {
   migrations: {
@@ -35,12 +13,12 @@ const migrationConf = {
   context: sequelize.getQueryInterface(),
   logger: console,
 }
-  
+
 const runMigrations = async () => {
   const migrator = new Umzug(migrationConf)
   const migrations = await migrator.up()
   console.log('Migrations up to date', {
-    files: migrations.map((mig) => mig.name),
+    files: migrations.map(mig => mig.name),
   })
 }
 const rollbackMigration = async () => {
@@ -49,6 +27,32 @@ const rollbackMigration = async () => {
   await migrator.down()
 }
 
-module.exports = { connectToDatabase, closeDatabase, sequelize, rollbackMigration }
+const connectToDatabase = async () => {
+  try {
+    await sequelize.authenticate()
+    await runMigrations()
+    console.log('connected to the database')
+  } catch (err) {
+    console.log('failed to connect to the database')
+    throw new Error('failed to connect to the database')
+  }
 
+  return null
+}
 
+const closeDatabase = async () => {
+  try {
+    await sequelize.close()
+    console.log('Database connection closed')
+  } catch (err) {
+    console.error('Error closing database connection:', err.message)
+    throw err
+  }
+}
+
+module.exports = {
+  connectToDatabase,
+  closeDatabase,
+  sequelize,
+  rollbackMigration,
+}

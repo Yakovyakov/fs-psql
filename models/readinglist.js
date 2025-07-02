@@ -1,5 +1,6 @@
-const { Model, DataTypes } = require('sequelize');
-const { sequelize } = require('../util/db');
+const { Model, DataTypes } = require('sequelize')
+
+const { sequelize } = require('../util/db')
 
 class ReadingList extends Model {}
 
@@ -32,7 +33,7 @@ ReadingList.init(
     timestamps: true,
     modelName: 'ReadingList',
     tableName: 'reading_lists',
-  }
-);
+  },
+)
 
-module.exports = ReadingList;
+module.exports = ReadingList
