@@ -8,9 +8,7 @@ router.post('/', async (request, response) => {
   const { username, password } = request.body
 
   if (password === undefined || username === undefined) {
-    return response.status(400).json({
-      error: 'username or password is missing',
-    })
+    return response.status(400).json({ error: 'username or password is missing' })
   }
 
   const user = await User.findOne({
@@ -22,9 +20,7 @@ router.post('/', async (request, response) => {
   const passwordCorrect = user === null ? false : await bcrypt.compare(password, user.passwordHash)
 
   if (!(user && passwordCorrect)) {
-    return response.status(401).json({
-      error: 'invalid username or password',
-    })
+    return response.status(401).json({ error: 'invalid username or password' })
   }
 
   const userForToken = {
