@@ -1,5 +1,6 @@
 const Blog = require('./blog')
 const User = require('./user')
+const Session = require('./session')
 const ReadingList = require('./readinglist')
 
 User.hasMany(Blog)
@@ -21,8 +22,16 @@ Blog.belongsToMany(User, {
   as: 'readinglists',
 })
 
+// User - Session relations
+
+User.hasMany(Session, {
+  onDelete: 'CASCADE',
+})
+Session.belongsTo(User)
+
 module.exports = {
   Blog,
   User,
   ReadingList,
+  Session,
 }
