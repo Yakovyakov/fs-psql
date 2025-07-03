@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken')
 require('express-async-errors')
 
+const { Session, User } = require('../models')
+
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
 }
@@ -60,8 +62,54 @@ const tokenExtractor = (req, res, next) => {
   next()
 }
 
+const sessionValidator = async (req, res, next) => {
+  const authorization = req.get('authorization')
+  const token = authorization?.toLowerCase.startsWith('bearer ') ? authorization.substring(7) : null
+
+  if (!token) {
+    return res.status(401).json({ error: 'token missing' })
+  }
+
+  try {
+    const session = await Session.findOne({
+      where: { token },
+      include: {
+        model: User,
+        attributes: ['id', 'disabled'],
+      },
+    })
+
+    if (!session) {
+      return res.status(401).json({ error: 'invalid session' })
+    }
+
+    if (session.User.disabled) {
+      await Session.destroy({ where: { userId: session.User.id } })
+      return res.status(401).json({ error: 'account disabled' })
+    }
+
+    const decodedToken = jwt.verify(token, process.env.SECRET)
+
+    // add decodedToken and token to req
+    req.decodedToken = decodedToken
+    req.token = token
+
+    next()
+  } catch (error) {
+    if (error.name === 'TokenExpiredError') {
+      await Session.destroy({ where: { token } })
+      return res.status(401).json({ error: 'token expired' })
+    }
+    if (error.name === 'JsonWebTokenError') {
+      return res.status(401).json({ error: 'token invalid' })
+    }
+    next(error)
+  }
+}
+
 module.exports = {
   unknownEndpoint,
   errorHandler,
   tokenExtractor,
+  sessionValidator,
 }
