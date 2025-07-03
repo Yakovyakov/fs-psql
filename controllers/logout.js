@@ -15,3 +15,5 @@ router.delete('/', sessionValidator, async (req, res, next) => {
     next(error)
   }
 })
+
+module.exports = router
