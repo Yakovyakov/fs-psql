@@ -9,3 +9,8 @@
 ## How It's Made
 
 **Tech used:** JavaScript, Node.js, Express, PostgreSQL, Sequelize
+
+## 📊 Architecture Documentation
+
+- [Database Schema Diagram](docs/database/schema.md)
+- [Session Validation Flow with Token Expiration](docs/workflows/session_validation_flow.md)
