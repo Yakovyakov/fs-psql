@@ -1,0 +1,9 @@
+### Logout
+DELETE http://localhost:3001/api/logout HTTP/1.1
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxQGV4YW1wbGUuY29tIiwiaWQiOjEsImlhdCI6MTc1MTYzNDkwMSwiZXhwIjoxNzUxNjQyMTAxfQ.Ezqdm5upIlN6sBdiQjjmXffNyQRL5MpfIASXOCxSyko
+
+{
+  "username": "user1@example.com",
+  "password": "secret"
+}

@@ -1,13 +1,20 @@
 ### All users
 http://localhost:3001/api/users
 
+
+### One user
+http://localhost:3001/api/users/2
+
+### One user with query
+http://localhost:3001/api/users/2?read=true
+
 ### Create a new user
 POST http://localhost:3001/api/users HTTP/1.1
 Content-Type: application/json
 
 {
-  "username": "yako1@example.com",
-  "name": "Yakovvvv",
+  "username": "user2@example.com",
+  "name": "user2",
   "password": "secret"
 }
 
