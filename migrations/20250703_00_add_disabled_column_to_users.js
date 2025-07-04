@@ -1,9 +1,10 @@
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
+const { DataTypes, Sequelize } = require('sequelize');
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  up: async ({ context: queryInterface }) => {
     /**
      * Add altering commands here.
      *
@@ -17,7 +18,7 @@ module.exports = {
     });
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     /**
      * Add reverting commands here.
      *
