@@ -1,7 +1,7 @@
 const router = require('express').Router()
 
 const { User, Blog, ReadingList } = require('../models')
-const { tokenExtractor } = require('../util/middleware')
+const { sessionValidator } = require('../util/middleware')
 
 router.post('/', async (req, res, next) => {
   try {
@@ -28,7 +28,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.put('/:id', tokenExtractor, async (req, res, next) => {
+router.put('/:id', sessionValidator, async (req, res, next) => {
   try {
     const { read } = req.body
     if (read === undefined || typeof read !== 'boolean') {
