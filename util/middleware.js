@@ -64,7 +64,9 @@ const tokenExtractor = (req, res, next) => {
 
 const sessionValidator = async (req, res, next) => {
   const authorization = req.get('authorization')
-  const token = authorization?.toLowerCase.startsWith('bearer ') ? authorization.substring(7) : null
+  const token = authorization?.toLowerCase().startsWith('bearer ')
+    ? authorization.substring(7)
+    : null
 
   if (!token) {
     return res.status(401).json({ error: 'token missing' })
@@ -79,12 +81,13 @@ const sessionValidator = async (req, res, next) => {
       },
     })
 
+    console.log(session)
     if (!session) {
       return res.status(401).json({ error: 'invalid session' })
     }
 
-    if (session.User.disabled) {
-      await Session.destroy({ where: { userId: session.User.id } })
+    if (session.user.disabled) {
+      await Session.destroy({ where: { userId: session.user.id } })
       return res.status(401).json({ error: 'account disabled' })
     }
 
